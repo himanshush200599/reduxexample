@@ -7,11 +7,25 @@ class Post extends Component {
     this.state = {
         post:[]
     };
+
+  }
+  componentWillMount(){
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(res=>res.json())
+    .then(data=> this.setState({post:data}))
   }
   render(){
+    const posts = this.state.post.map((data)=>(
+    <div key={data.id} >
+      <h3>{data.title}</h3>
+      <p>{data.body}</p>
+      <hr />
+    </div>
+
+   ))
     return(
       <div>
-        Post
+        {posts}
       </div>
     );
 }
